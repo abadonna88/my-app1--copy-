@@ -5,7 +5,7 @@ import Users from './Users';
 import Preloader from '../common/preloader/Preloader';
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
-import { getUsers, getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, isFetching } from "../../redux/usersSelectrors";
+import { getUsers, getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, isFetching, getUsersSuper, getUsersSuperSelector } from "../../redux/usersSelectrors";
 
 class UsersAPIComponent extends React.Component {
     
@@ -48,7 +48,8 @@ class UsersAPIComponent extends React.Component {
 let mapStateToProps = (state) => {
     return {
         // users: state.usersPage.users,
-        users: getUsers(state),
+        // users: getUsers(state),
+        users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
