@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 // import { withRouter } from "react-router-dom";
 import Profile from "./Profile";
-import { getUserProfile, getStatus, updateStatus } from '../../redux/profileReducer';
+import { getUserProfile, getStatus, updateStatus, savePhoto } from '../../redux/profileReducer';
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { Navigate, useParams} from "react-router-dom";
@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 
 class ProfileContainer extends React.Component {
 
-    componentDidMount(){
+    refreshProfile(){
         // let userId = this.props.match.params.userId;
         let userId = null;
         if (!userId) {
@@ -23,12 +23,27 @@ class ProfileContainer extends React.Component {
         this.props.getStatus(userId);
     }
 
+    componentDidMount(prevProps, prevState, snapshot){
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(){
+        // if (this.props.match.params.userId != this.props.match.params.userId ){
+        //     this.refreshProfile();
+        // }
+
+        this.refreshProfile();
+    }
+
     render() {
         return (
             <Profile {...this.props} 
+                // owner={!this.props.match.params.userId}
+                isOwner={true}
                 profile={this.props.profile}
                 status={this.props.status}
                 updateStatus={this.props.updateStatus}
+                savePhoto={this.props.savePhoto}
             />
         )
     }
@@ -41,7 +56,7 @@ let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 });
 
-export default compose(connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}), withAuthRedirect)(ProfileContainer);
+export default compose(connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}), withAuthRedirect)(ProfileContainer);
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
 // const ProfileContainer = (props) => {
