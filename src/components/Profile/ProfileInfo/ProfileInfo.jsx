@@ -25,7 +25,6 @@ const ProfileInfo = (props) =>{
                 setEditMode(false);
             }
         );
-        
     }
 
     return (
