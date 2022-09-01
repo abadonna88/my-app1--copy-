@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 // import { withRouter } from "react-router-dom";
 import Profile from "./Profile";
-import { getUserProfile, getStatus, updateStatus, savePhoto } from '../../redux/profileReducer';
+import { getUserProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../redux/profileReducer';
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import { Navigate, useParams} from "react-router-dom";
@@ -56,7 +56,7 @@ let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 });
 
-export default compose(connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}), withAuthRedirect)(ProfileContainer);
+export default compose(connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto, saveProfile}), withAuthRedirect)(ProfileContainer);
 // let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
 // const ProfileContainer = (props) => {
